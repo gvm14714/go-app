@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"log"
 )
 
 func main() {
@@ -20,6 +21,7 @@ type row struct {
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	log.Println("ServeHTTP method called")
 	if r.URL.Path == "/healthcheck" {
 		w.WriteHeader(200)
 		w.Write([]byte(`{"status":"ok"}`))
@@ -27,6 +29,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	switch r.Method {
 	case "GET":
+		log.Println("GET request received")
 		rs, err := _connection.Query(`SELECT id,created_at FROM stuff`)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -36,6 +39,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		var ret []row
 		for rs.Next() {
+			log.Println("Inside the for loop")
 			cur := row{}
 			err = rs.Scan(
 				&cur.id,
@@ -62,6 +66,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	case "POST":
+		log.Println("POST request received")
 		_, err := _connection.Exec("INSERT INTO stuff (created_at) VALUES (NOW())")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -70,6 +75,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Write([]byte(`OK`))
 	case "PATCH":
+		log.Println("PATCH request received")
 		idStr := r.URL.Query().Get("id")
 		id, err := strconv.ParseInt(idStr, 10, 64)
 		if err != nil {
