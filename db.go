@@ -77,8 +77,9 @@ func schema() {
 		id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		created_at DATETIME NOT NULL
 	)`)
-
+	
 	if err != nil {
 		log.Panicln("Failed to create 'stuff' table:", err)
 	}
+	log.Println("Created 'stuff' table...")
 }
