@@ -19,6 +19,8 @@ func init() {
 		ParseTime:            true,
 	}
 
+	log.Println("Initializing database connection...")
+
 	for i := 0; i < 30; i++ {
 		connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
 		if err != nil {
@@ -45,23 +47,23 @@ func init() {
 
 	connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
-		panic(err)
+		log.Panicln("Failed to open database connection:", err)
 	}
 
 	_, err = connection.Exec(`CREATE DATABASE IF NOT EXISTS internship`)
 	if err != nil {
-		panic(err)
+		log.Panicln("Failed to create database:", err)
 	}
 
 	mysqlConfig.DBName = `internship`
 
 	if err = connection.Close(); err != nil {
-		panic(err)
+		log.Panicln("Failed to close database connection:", err)
 	}
 
 	connection, err = sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
-		panic(err)
+		log.Panicln("Failed to open database connection:", err)
 	}
 
 	_connection = connection
@@ -70,12 +72,13 @@ func init() {
 }
 
 func schema() {
+	log.Println("Creating 'stuff' table...")
 	_, err := _connection.Exec(`CREATE TABLE IF NOT EXISTS stuff (
 		id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		created_at DATETIME NOT NULL
 	)`)
 
 	if err != nil {
-		panic(err)
+		log.Panicln("Failed to create 'stuff' table:", err)
 	}
 }
