@@ -7,7 +7,7 @@ COPY . .
 RUN GOOS=linux go build -o main-app .
 
 # Deploy the application binary into a lean image
-FROM gcr.io/distroless/base-debian11 AS build-release-stage
+FROM debian:11-slim AS build-release-stage
 
 WORKDIR /app
 
