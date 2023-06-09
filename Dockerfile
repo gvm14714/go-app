@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN GOOS=linux go build -o main .
+RUN GOOS=linux go build -o main-app .
 
 # Deploy the application binary into a lean image
 FROM gcr.io/distroless/base-debian11 AS build-release-stage
@@ -18,4 +18,4 @@ RUN adduser --disabled-password --gecos "" appuser
 USER appuser
 
 EXPOSE 9090 
-CMD ["./main"]
+CMD ["./main-app"]
