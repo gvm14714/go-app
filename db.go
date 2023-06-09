@@ -2,8 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
-	"os"
 
 	mysqldriver "github.com/go-sql-driver/mysql"
 )
@@ -12,10 +10,10 @@ var _connection *sql.DB
 
 func init() {
 	mysqlConfig := &mysqldriver.Config{
-		User:                 os.Getenv("MYSQL_USER"),
-		Passwd:               os.Getenv("MYSQL_PASS"),
+		User:                 "root",
+		Passwd:               "1234",
 		Net:                  "tcp",
-		Addr:                 fmt.Sprintf("%s:%s", os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
+		Addr:                 "127.0.0.1:3306",
 		AllowNativePasswords: true,
 		ParseTime:            true,
 	}
