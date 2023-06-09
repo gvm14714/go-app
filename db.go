@@ -2,7 +2,8 @@ package main
 
 import (
 	"database/sql"
-
+	"log"
+	"time"
 	mysqldriver "github.com/go-sql-driver/mysql"
 )
 
@@ -13,9 +14,33 @@ func init() {
 		User:                 "root",
 		Passwd:               "1234",
 		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
+		Addr:                 "mysql:3306",
 		AllowNativePasswords: true,
 		ParseTime:            true,
+	}
+
+	for i := 0; i < 30; i++ {
+		connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
+		if err != nil {
+			log.Println("Failed to connect to MySQL. Retrying in 1 second...")
+			time.Sleep(1 * time.Second)
+			continue
+		}
+
+		if err = connection.Ping(); err != nil {
+			log.Println("Failed to ping MySQL. Retrying in 1 second...")
+			connection.Close()
+			time.Sleep(1 * time.Second)
+			continue
+		}
+
+		_connection = connection
+		log.Println("Connected to MySQL")
+		break
+	}
+
+	if _connection == nil {
+		log.Fatal("Failed to connect to MySQL")
 	}
 
 	connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
