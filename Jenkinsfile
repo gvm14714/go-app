@@ -16,11 +16,24 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage('build and push image') {
+        stage('build image') {
             steps {
                 sh(script: """
                     docker images
                     docker build -t ahmedelmelegy3570/app-multistage .
+                """)
+                }
+        }
+        stage('scan image') {
+            steps {
+                sh(script: """
+                    trivy image ahmedelmelegy3570/app-multistage
+                """)
+                }
+        }
+        stage('push image') {
+            steps {
+                sh(script: """
                     docker push ahmedelmelegy3570/app-multistage
                 """)
                 }
