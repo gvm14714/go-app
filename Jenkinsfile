@@ -16,15 +16,12 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage('build and push udr image') {
+        stage('build and push image') {
             steps {
                 sh(script: """
                     docker images
-                    make base
-                    cd nf_udr
-                    docker build -t gradproj/udr .
-                    docker push gradproj/udr
-                    cd ..
+                    docker build -t ahmedelmelegy3570/app-multistage .
+                    docker push ahmedelmelegy3570/app-multistage
                 """)
                 }
         }
