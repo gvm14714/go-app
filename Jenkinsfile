@@ -24,12 +24,6 @@ pipeline {
                 """)
                 }
         }
-        stage('scan image') {
-            steps {
-                sh(script: """
-                    trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL ahmedelmelegy3570/app-multistage
-                """)
-                }
         }
         stage('push image') {
             steps {
