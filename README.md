@@ -151,6 +151,17 @@ docker-compose up
 ![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/cf3d91b0-adf3-4407-a804-459fe8517aa1)
 ## Jenkins
 To install jenkins as container and it will run on port 8080
+I created a pipeline
+![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/985109ab-f079-4a7d-98ac-3151cc6e3f3a)
+and this is the configuration of it 
+
+and I created credentials to be able to securly login to dockerhub to push image
+![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/8cc4382a-7426-47a8-9572-a8fb2474e969)
+
+
 ```bash
 docker run -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 ```
+### Push image to dockerhub
+![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/280b1103-13eb-40f5-8163-98cdb87ebfb5)
+
