@@ -15,6 +15,36 @@ Contains:
 - Jenkins
 - helm
 - Minikube
+This is the tree of the repository
+```bash
+.
+├── Dockerfile
+├── Jenkinsfile
+├── README.md
+├── app
+│   ├── db.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main-app
+│   └── main.go
+├── charts
+│   └── myapp
+│       ├── Chart.yaml
+│       ├── charts
+│       │   └── mysql-8.8.16.tgz
+│       ├── templates
+│       │   ├── app-deployment.yaml
+│       │   ├── app-service.yaml
+│       │   ├── mysql-deployment.yaml
+│       │   ├── mysql-service.yaml
+│       │   ├── pv.yaml
+│       │   ├── pvc.yaml
+│       │   └── storageclass.yaml
+│       └── values.yaml
+├── docker-compose.yml
+├── init.sql
+└── main-app
+```
 
 ## How to build this app
 
@@ -118,4 +148,8 @@ To apply this docker compose file
 docker-compose up
 ```
 ![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/cf3d91b0-adf3-4407-a804-459fe8517aa1)
-
+## Jenkins
+To install jenkins as container and it will run on port 8080
+```bash
+docker run -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+```
