@@ -6,7 +6,7 @@ spec:
   selector:
     app: app
   ports:
-    - name: http
-      port: 9090
-      targetPort: 9090
-  type: ClusterIP
+  - name: http
+    port: 9090
+    targetPort: 9090
+  type: LoadBalancer

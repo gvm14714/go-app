@@ -1,15 +1,11 @@
-mysql:
-  enabled: true
-  rootUser:
-    password: "1234"
-  auth:
-    database: "mydb"
-    user: "ahmed"
-    password: "1234"
+replicaCount: 3
 
-app:
-  image:
-    repository: ahmedelmelegy3570/app-multistage
-    tag: latest
-  env:
-    MYSQL_HOST: mysql-service
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
+
+persistence:
+  enabled: true
+  size: 10Gi

@@ -1,9 +1,9 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: app
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: app
@@ -13,25 +13,36 @@ spec:
         app: app
     spec:
       containers:
-        - name: app
-          image: ahmedelmelegy3570/app-multistage
-          ports:
-            - containerPort: 9090
-          env:
-            - name: MYSQL_HOST
-              value: mysql-service
-            - name: MYSQL_PORT
-              value: "3306"
-            - name: MYSQL_USER
-              value: ahmed
-            - name: MYSQL_PASSWORD
-              value: "1234"
-            - name: MYSQL_DATABASE
-              value: mydb
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+      - name: app
+        image: ahmedelmelegy3570/app-multistage
+        ports:
+        - containerPort: 9090
+        env:
+        - name: MYSQL_HOST
+          value: mysql-service
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_USER
+          value: ahmed
+        - name: MYSQL_PASSWORD
+          value: "1234"
+        - name: MYSQL_DATABASE
+          value: mydb
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+    {{- if .Values.persistence.enabled }}
+        volumeMounts:
+        - name: app-persistent-storage
+          mountPath: /path/to/persistent/storage
+    {{- end }}
+  {{- if .Values.persistence.enabled }}
+    volumes:
+    - name: app-persistent-storage
+      persistentVolumeClaim:
+        claimName: app-pv-claim
+  {{- end }}
