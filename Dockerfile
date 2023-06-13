@@ -2,7 +2,7 @@ FROM golang:1.19 AS build-stage
 
 WORKDIR /app
 
-COPY . .
+COPY ./app .
 
 RUN GOOS=linux go build -o main-app .
 
