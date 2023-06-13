@@ -50,9 +50,9 @@ This is the tree of the repository
 ## How to build this app
 
 ```bash
-go build -o goviolin .
+go build -o main-app .
 ```
-This will produce an artifiact called goviolin then to run it
+This will produce an artifiact called main-app then to run it
 ```bash
 ./main-app
 ```
