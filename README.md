@@ -271,7 +271,8 @@ I tried to debug the code so I put log.Println() in each function but I couldn`t
 The intenrship database and table named stuff is created so there is no problem in the connection between the app and mysql
 ```bash
 mysql -h 127.0.0.1 -P 3306 -u ahmed -p
-use internship
-SHOW TABLES;
+Enter password: 1234
+mysql> use internship
+mysql> SHOW TABLES;
 ```
 ![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/01c3a5dc-4f8d-484e-a484-6d43cd10154f)
