@@ -264,6 +264,8 @@ helm install myapp .
 To browse the app
 localhost:9090
 ![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/1fd5fd88-35c0-4f4b-92be-49b54ea7e1e1)
+localhost:9090/healthcheck
+![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/62e8842d-2277-47e0-9e2a-fa1f79776241)
 I tried to figure out where is the problem in the api but I couldn`t. 
 I tried to debug the code so I put log.Println() in each function but I couldn`t find the problem.
 The intenrship database and table named stuff is created so there is no problem in the connection between the app and mysql
