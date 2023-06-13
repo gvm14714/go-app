@@ -19,7 +19,9 @@ spec:
             - containerPort: 9090
           env:
             - name: MYSQL_HOST
-              value: 172.17.0.1
+              value: mysql-service
+            - name: MYSQL_PORT
+              value: "3306"
             - name: MYSQL_USER
               value: ahmed
             - name: MYSQL_PASSWORD

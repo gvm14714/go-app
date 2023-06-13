@@ -12,4 +12,4 @@ app:
     repository: ahmedelmelegy3570/app-multistage
     tag: latest
   env:
-    MYSQL_HOST: localhost
+    MYSQL_HOST: mysql-service
