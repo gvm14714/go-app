@@ -83,3 +83,9 @@ To run container with the built image, we will map port 5000 from host to port 5
 ```bash
 docker run -p 9090:9090 ahmedelmelegy3570/app-multistage
 ```
+### To make the image more secure
+to create a user and use it instead of root user
+```bash
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+```
