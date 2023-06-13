@@ -79,7 +79,7 @@ The size of the image is greatly reduced
 ![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/1d839a6b-504b-4ac6-92ed-021e78978b1e)
 Now it is less than 0.1 GB!
 
-To run container with the built image, we will map port 5000 from host to port 5000 in the container
+To run container with the built image, we will map port 9090 from host to port 9090 in the container
 ```bash
 docker run -p 9090:9090 ahmedelmelegy3570/app-multistage
 ```
@@ -89,3 +89,33 @@ to create a user and use it instead of root user
 RUN adduser --disabled-password --gecos "" appuser
 USER appuser
 ```
+## Docker-compose
+in dockercompose.yaml, I combined both app and mysql db so they have the same network and I made the app depend on mysql
+```bash
+version: '3'
+services:
+  app:
+    image: app-multistage
+    ports:
+      - 9090:9090
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=ahmed
+      - MYSQL_PASSWORD=1234
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3306:3306
+    command: ["--log-error-verbosity=3"]
+```
+To apply this docker compose file
+```bash
+docker-compose up
+```
+![image](https://github.com/gAhmed-Elmelegy/go-app-intern/assets/136341359/cf3d91b0-adf3-4407-a804-459fe8517aa1)
+
