@@ -1,0 +1,19 @@
+apiVersion: v2
+name: mychart
+version: 1.0.0
+description: A Helm chart for my application
+type: application
+keywords:
+  - helm
+  - kubernetes
+home: https://github.com/myuser/mychart
+sources:
+  - https://github.com/myuser/mychart/archive/1.0.0.tar.gz
+maintainers:
+  - name: My Name
+    email: myname@example.com
+appVersion: 1.2.3
+dependencies:
+  - name: mysql
+    version: ">=1.0.0"
+    repository: "file://charts/mysql-8.8.16.tgz"

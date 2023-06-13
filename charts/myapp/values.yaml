@@ -1,0 +1,15 @@
+mysql:
+  enabled: true
+  rootUser:
+    password: "1234"
+  auth:
+    database: "mydb"
+    user: "ahmed"
+    password: "1234"
+
+app:
+  image:
+    repository: ahmedelmelegy3570/app-multistage
+    tag: latest
+  env:
+    MYSQL_HOST: localhost
