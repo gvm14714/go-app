@@ -56,7 +56,6 @@ This will produce an artifiact called goviolin then to run it
 ```bash
 ./main-app
 ```
-![image](https://github.com/ahmedelmelegy/GoViolin/assets/62904201/5db629ec-02ca-4d61-bc47-557200030ab5)
 ## Dockerize application
 ### Single-Stage Dockerfile
 
@@ -65,7 +64,8 @@ FROM golang:1.19
 
 WORKDIR /main-app
 
-COPY ./app . RUN go mod init RUN go build -o app .
+COPY ./app . 
+RUN GOOS=linux go build -o main-app .
 
 EXPOSE 9090
 CMD ["./main-app"]
