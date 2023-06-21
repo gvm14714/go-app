@@ -30,7 +30,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh(script: """
-                        docker push r ahmedelmelegy3570/app-multistage
+                        docker push ahmedelmelegy3570/app-multistage
                     """)
                 }
             }
