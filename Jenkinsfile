@@ -19,8 +19,8 @@ pipeline {
             steps {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh(script: """
-                        docker images
-                        docker build -t gym14714/us .
+                        /usr/local/bin/docker images
+                        /usr/local/bin/docker build -t gym14714/us .
                     """)
                 }
             }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh(script: """
-                        docker push gym14714/us
+                        /usr/local/bin/docker push gym14714/us
                     """)
                 }
             }
@@ -44,4 +44,3 @@ pipeline {
         }
     }
 }
-
