@@ -1,19 +1,26 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials')
-        REPORT_EMAIL = "ahmedelmelegy3570@gmail.com"
+        // Declaring environment variable for report email
+        REPORT_EMAIL = "gvm14714@gmail.com"
     }
 
     stages {
         stage('Verify Branch') {
             steps {
-                echo "$GIT_BRANCH"
+                script {
+                    // Checking for the BRANCH_NAME (Multibranch Pipeline) or GIT_BRANCH
+                    def branchName = env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'Unknown'
+                    echo "Branch: ${branchName}"
+                }
             }
         }
         stage('Login to DockerHub') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                // Using withCredentials to handle DockerHub credentials
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PSW')]) {
+                    sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USER --password-stdin'
+                }
             }
         }
         stage('Build image') {
@@ -21,7 +28,7 @@ pipeline {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh(script: """
                         docker images
-                        docker build -t ahmedelmelegy3570/app-multistage .
+                        docker build -t gym14714/us .
                     """)
                 }
             }
@@ -30,7 +37,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh(script: """
-                        docker push ahmedelmelegy3570/app-multistage
+                        docker push gym14714/us
                     """)
                 }
             }
